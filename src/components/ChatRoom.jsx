@@ -2,16 +2,22 @@ import React from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { ChatMessage } from "./ChatMessage";
 
-export const ChatRoom = ({ firestore }) => {
-  const messageRef = firestore.collection("messages");
-  const query = messageRef.orderBy("createdAt").limit(25);
-
+export const ChatRoom = ({ messageRef, query, auth }) => {
   const [messages] = useCollectionData(query, { idField: "id" });
-  console.log(messages);
+  console.log(messageRef);
   return (
     <div>
-      ChatRoom this is chatroom
-      <div></div>
+      ChatRoom
+      <div>
+        {messages &&
+          messages.map((msg) => (
+            <ChatMessage key={msg.id} message={msg} auth={auth} />
+          ))}
+      </div>
+      <form>
+        <input type="text" />
+        <button>Send</button>
+      </form>
     </div>
   );
 };

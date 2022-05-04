@@ -1,11 +1,15 @@
 import React from "react";
 
-export const ChatMessage = (props) => {
-  const { text, uid } = props.message;
+export const ChatMessage = ({ message, auth }) => {
+  const { text, uid } = message;
+  const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
+  const photoUrl = "#";
   return (
     <div>
-      <p>{text}</p>
-      hello
+      <div className={`message ${messageClass}`}>
+        <img src={photoUrl} />
+        <p>{text}</p>
+      </div>
     </div>
   );
 };
