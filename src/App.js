@@ -8,6 +8,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import { ChatRoom } from "./components/ChatRoom";
 import { SignIn } from "./components/SignIn";
 import { SignOut } from "./components/SignOut";
+import { useState } from "react";
 
 firebase.initializeApp({
   //my config
@@ -22,6 +23,7 @@ firebase.initializeApp({
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
+
 //to create each message and add the collection in the firebase
 const messageRef = firestore.collection("messages");
 const query = messageRef.orderBy("createdAt").limit(25);
@@ -30,43 +32,22 @@ function App() {
   const [user] = useAuthState(auth); //to check if the user is logged in or not
   return (
     <div className="App">
+      <SignOut auth={auth} />
       <header></header>
       <section>
         {user ? (
-          <ChatRoom messageRef={messageRef} query={query} auth={auth} />
+          <ChatRoom
+            messageRef={messageRef}
+            query={query}
+            auth={auth}
+            firebase={firebase}
+          />
         ) : (
           <SignIn auth={auth} firebase={firebase} />
         )}
-        <SignOut auth={auth} />
       </section>
     </div>
   );
 }
-// function SignIn() {
-//   const signInWithGoogle = () => {
-//     const provider = new firebase.auth.GoogleAuthProvider();
-//     auth.signInWithPopup(provider);
-//   };
-//   return <button onClick={signInWithGoogle}>Sign in with google</button>;
-// }
-// function SignOut() {
-//   return (
-//     auth.currentUser && <button onClick={() => auth.signOut()}>Sign Out</button>
-//   );
-// }
-// function ChatRoom() {
-//   const messagesReff = firestore.collection("messages");
-//   const query = messagesReff.orderBy("createdAt").limit(25);
-
-//   const [messages] = useCollectionData(query, { idField: "id" });
-//   return (
-//     <>
-//       <div>
-//         {messages &&
-//           messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
-//       </div>
-//     </>
-//   );
-// }
 
 export default App;
