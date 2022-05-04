@@ -14,13 +14,13 @@ import { SignOut } from "./components/SignOut";
 
 firebase.initializeApp({
   //my config
-  apiKey: "AIzaSyDztDOzroiG5S_22YQkdqyUthPCnt8ad0A",
-  authDomain: "superchat-3ffbe.firebaseapp.com",
-  projectId: "superchat-3ffbe",
-  storageBucket: "superchat-3ffbe.appspot.com",
-  messagingSenderId: "1021874910622",
-  appId: "1:1021874910622:web:79fe819992939ea927928f",
-  measurementId: "G-FSF4JBF7CJ",
+  apiKey: "AIzaSyCUikGOiL3uX5Ij-gAmSMJ4To_DdUqkMB4",
+  authDomain: "superchat2-90df7.firebaseapp.com",
+  projectId: "superchat2-90df7",
+  storageBucket: "superchat2-90df7.appspot.com",
+  messagingSenderId: "688111557254",
+  appId: "1:688111557254:web:07da40e3fb3b34d8028f07",
+  measurementId: "G-YBNJB8290H",
 });
 
 const auth = firebase.auth();
@@ -32,7 +32,11 @@ function App() {
     <div className="App">
       <header></header>
       <section>
-        {user ? <ChatRoom /> : <SignIn auth={auth} firebase={firebase} />}
+        {user ? (
+          <ChatRoom firestore={firestore} />
+        ) : (
+          <SignIn auth={auth} firebase={firebase} />
+        )}
         <SignOut auth={auth} />
       </section>
     </div>
