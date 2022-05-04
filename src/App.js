@@ -10,6 +10,7 @@ import {
 } from "react-firebase-hooks/firestore";
 import { ChatRoom } from "./components/ChatRoom";
 import { SignIn } from "./components/SignIn";
+import { SignOut } from "./components/SignOut";
 
 firebase.initializeApp({
   //my config
@@ -32,6 +33,7 @@ function App() {
       <header></header>
       <section>
         {user ? <ChatRoom /> : <SignIn auth={auth} firebase={firebase} />}
+        <SignOut auth={auth} />
       </section>
     </div>
   );
