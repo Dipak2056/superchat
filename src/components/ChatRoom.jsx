@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { ChatMessage } from "./ChatMessage";
 
@@ -34,13 +34,15 @@ export const ChatRoom = ({ firebase, messageRef, query, auth }) => {
           ))}
         <div ref={dummy}></div>
       </div>
+      <hr />
+      <hr />
       <form onSubmit={sendMessage}>
         <input
           type="text"
           value={formValue}
           onChange={(e) => setFormValue(e.target.value)}
         />
-        <button onClick={(e) => sendMessage}>Send📩</button>
+        <button onClick={sendMessage}>Send📩</button>
       </form>
     </div>
   );

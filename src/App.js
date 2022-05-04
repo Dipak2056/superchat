@@ -26,7 +26,7 @@ const firestore = firebase.firestore();
 
 //to create each message and add the collection in the firebase
 const messageRef = firestore.collection("messages");
-const query = messageRef.orderBy("createdAt").limit(25);
+const query = messageRef.orderBy("createdAt").limit(1000);
 
 function App() {
   const [user] = useAuthState(auth); //to check if the user is logged in or not
