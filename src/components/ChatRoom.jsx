@@ -4,6 +4,7 @@ import { ChatMessage } from "./ChatMessage";
 
 export const ChatRoom = ({ firebase, messageRef, query, auth }) => {
   const [messages] = useCollectionData(query, { idField: "id" });
+  const dummy = useRef();
   //to handle the data from the form
   const [formValue, setFormValue] = useState();
   const { uid, photoURL } = auth.currentUser;
@@ -16,6 +17,7 @@ export const ChatRoom = ({ firebase, messageRef, query, auth }) => {
       photoURL,
     });
     setFormValue(" ");
+    dummy.current.scrollIntoView({ behavior: "smooth" });
   };
   return (
     <div>
@@ -30,6 +32,7 @@ export const ChatRoom = ({ firebase, messageRef, query, auth }) => {
               photoURL={photoURL}
             />
           ))}
+        <div ref={dummy}></div>
       </div>
       <form onSubmit={sendMessage}>
         <input
